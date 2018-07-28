@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QtWidgets>
+#include <fild.h>
+#include <mine.h>
+
 namespace Ui {
 class MainWindow;
 }
@@ -18,8 +21,19 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QVBoxLayout *body;
     QGraphicsView *view;
     QGraphicsScene *scene;
+    QPushButton *start;
+
+
+    QVector<QGraphicsItem *> steps;
+
+    void createMine(int amount);
+    void createSteps();
+private slots:
+
+    void Make_a_step();
 };
 
 #endif // MAINWINDOW_H
