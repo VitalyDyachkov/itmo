@@ -19,7 +19,7 @@ public:
 
 signals:
    // void signalStep(QGraphicsItem *point);
-    void signalStep();
+    void signalStep(QGraphicsItem *one_step);
 protected:
      void mousePressEvent(QGraphicsSceneMouseEvent *event);
 

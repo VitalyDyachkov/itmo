@@ -27,6 +27,16 @@ void Step::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 }
 void Step::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    emit signalStep();
+    QList<QGraphicsItem *> foundItem = scene()->items(event->scenePos());
+
+
+    foreach (QGraphicsItem *item, foundItem) {
+//        if (item == this)
+//            continue;
+        qDebug() << foundItem;
+     //   scene()->removeItem(item);
+          emit signalStep(item);
+    }
+
     QGraphicsItem::mousePressEvent(event);
 }

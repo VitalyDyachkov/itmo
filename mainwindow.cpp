@@ -87,7 +87,8 @@ void MainWindow::createSteps()
         connect(one_st,SIGNAL(signalStep()),this,SLOT(Make_a_step()));
     }
 }
-void MainWindow ::Make_a_step()
+void MainWindow ::Make_a_step(QGraphicsItem *one_step)
 {
 //здесь будем удалять нажатые квадратики и в соответствии с картой минных полей реагировать
+    scene->removeItem(one_step);
 }

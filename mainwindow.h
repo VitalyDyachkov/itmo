@@ -33,7 +33,7 @@ private:
     void createSteps();
 private slots:
 
-    void Make_a_step();
+    void Make_a_step(QGraphicsItem *one_step);
 };
 
 #endif // MAINWINDOW_H
