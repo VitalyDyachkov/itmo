@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     scene = new QGraphicsScene();
 
 
-    view->setBackgroundBrush(Qt::green);
+    view->setBackgroundBrush(Qt::white);
     view->setScene(scene);
     body->addWidget(view);
 
@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     createSteps();
     scene->setSceneRect(0, 0, 200, 200);
 
-     scene->addRect(0, 0, 200, 200, QPen(Qt::green));
+    // scene->addRect(0, 0, 400, 400, QPen(Qt::green));
 }
 MainWindow::~MainWindow()
 {
@@ -84,11 +84,20 @@ void MainWindow::createSteps()
 
         scene->addItem(one_st);
         steps.push_back(one_st);
-        connect(one_st,SIGNAL(signalStep()),this,SLOT(Make_a_step()));
+        //connect(one_st,SIGNAL(signalStep()),this,SLOT(Make_a_step()));
+
+        connect(one_st,&Step::signalStep,this,&MainWindow ::Make_a_step);
+
     }
 }
 void MainWindow ::Make_a_step(QGraphicsItem *one_step)
 {
 //здесь будем удалять нажатые квадратики и в соответствии с картой минных полей реагировать
-    scene->removeItem(one_step);
+    foreach (QGraphicsItem *point, steps) {
+        if(point == one_step)
+        {
+            scene->removeItem(one_step);
+        }
+    }
+ //   scene->removeItem(one_step);
 }
