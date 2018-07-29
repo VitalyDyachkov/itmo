@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QRandomGenerator>
 #include<QPushButton>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -96,8 +97,35 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
     foreach (QGraphicsItem *point, steps) {
         if(point == one_step)
         {
-            scene->removeItem(one_step);
+            if(first_step != true)
+            {
+                //произведем рандомную очистку поля
+                QRandomGenerator *gen = new QRandomGenerator();
+                QGraphicsTextItem *numb;
+
+                scene->removeItem(one_step);
+
+                for(int i = 0;i < steps.size();i++)
+                {
+                    if (gen->generate() & 1)
+                    {
+                        continue;
+                    }
+                    numb = scene->addText("1");
+                    numb->setPos(steps[i]->scenePos());
+                    scene->removeItem(steps[i]);
+                    qDebug() << steps[i];
+                    //steps.removeOne(steps[i]);
+                }
+                first_step = true;
+            }
+            else
+            {
+                scene->removeItem(one_step);
+                //steps.removeOne(one_step);
+            }
+
         }
     }
- //   scene->removeItem(one_step);
+
 }

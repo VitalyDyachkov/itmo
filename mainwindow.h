@@ -25,7 +25,7 @@ private:
     QGraphicsView *view;
     QGraphicsScene *scene;
     QPushButton *start;
-
+    bool first_step = false;
 
     QVector<QGraphicsItem *> steps;
 

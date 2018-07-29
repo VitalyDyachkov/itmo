@@ -30,13 +30,11 @@ void Step::mousePressEvent(QGraphicsSceneMouseEvent *event)
      QRectF rect(this->x(), this->y(), 20, 20);
 
      QList<QGraphicsItem *> foundItem = scene()->items(rect);
-qDebug() << foundItem;
-    foreach (QGraphicsItem *item, foundItem) {
-     //   if (item == this)
-     //       continue;
-        //qDebug() << foundItem;
-        //qDebug() << foundItem;
-      //  scene()->removeItem(item);
+
+     qDebug() << foundItem;
+
+     foreach (QGraphicsItem *item, foundItem) {
+
           emit signalStep(item);
     }
 
