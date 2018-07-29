@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     createSteps();
     scene->setSceneRect(0, 0, 200, 200);
 
-    // scene->addRect(0, 0, 400, 400, QPen(Qt::green));
+     scene->addRect(0, 0, 200, 200, QPen(Qt::green));
 }
 MainWindow::~MainWindow()
 {

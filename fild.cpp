@@ -22,7 +22,7 @@ QRectF Step::boundingRect() const
 void Step::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
    painter->setBrush(Qt::gray);
-   painter->drawRect(5, 5, 20, 20);
+   painter->drawRect(0, 0, 20, 20);
 
 }
 void Step::mousePressEvent(QGraphicsSceneMouseEvent *event)
