@@ -109,6 +109,11 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
                 {
                     if (gen->generate() & 1)
                     {
+                        if(gen->generate() & 1)
+                        {
+                             mines.push_back(steps[i]);
+                        }
+
                         continue;
                     }
                     numb = scene->addText("1");
@@ -121,6 +126,17 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
             }
             else
             {
+               foreach(QGraphicsItem *numb,mines)
+               {
+                   if(numb == one_step)
+                   {
+                       QGraphicsTextItem *numb;
+                       numb = scene->addText("M");
+                       numb->setPos(one_step->scenePos());
+                       // numb->setVisible(false);
+                   }
+               }
+
                 scene->removeItem(one_step);
                 //steps.removeOne(one_step);
             }

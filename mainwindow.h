@@ -28,7 +28,7 @@ private:
     bool first_step = false;
 
     QVector<QGraphicsItem *> steps;
-
+    QVector<QGraphicsItem*>mines;
     void createMine(int amount);
     void createSteps();
 private slots:
