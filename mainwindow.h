@@ -29,7 +29,9 @@ private:
 
     QVector<QGraphicsItem *> steps;
     QVector<QGraphicsItem*>mines;
-    void createMine(int amount);
+    int numbers[100] = {0};
+    bool squars[100] = {false};
+
     void createSteps();
 private slots:
 
