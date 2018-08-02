@@ -3,7 +3,7 @@
 #include <QMessageBox>
 #include <QRandomGenerator>
 #include<QPushButton>
-
+#include<QString>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -50,7 +50,7 @@ void MainWindow::createSteps()
         one_st->setPos(col * 20,row * 20);
 
         row ++;
-one_st->setOpacity(1);
+
         scene->addItem(one_st);
         steps.push_back(one_st);
         //connect(one_st,SIGNAL(signalStep()),this,SLOT(Make_a_step()));
@@ -182,16 +182,21 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
                 }
                 for(int i = 0; i < 100; i++)
                 {
+                    /*произведем вывод чисел в квадратики в соответствии с картой минного поля*/
                     if(numbers[i] > 0 && numbers[i] < 54)
                     {
                         QString string_num = QString::number(numbers[i]);
 
-                        numb = scene->addText(string_num);
-                        numb->setPos(steps[i]->scenePos());
-                       // if(squars[i] == true)
-                       // {
-                       //    numb->hide();
-                       // }
+                        if(squars[i] == true)
+                        {
+                            dynamic_cast<Step *>(steps[i])->numb = string_num;
+                           //numb->hide();
+                        }
+                        else
+                        {
+                            numb = scene->addText(string_num);
+                            numb->setPos(steps[i]->scenePos());
+                        }
 
                     }
                     else if(numbers[i] == 0)
@@ -214,13 +219,15 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
 
                    }
                }
-
-                scene->removeItem(one_step);
-
-                //steps.removeOne(one_step);
+               //steps.removeOne(one_step);
+               QGraphicsTextItem *numer;
+               numer = scene->addText(dynamic_cast<Step*>(one_step)->numb);
+               numer->setPos(one_step->scenePos());
+               scene->removeItem(one_step);
             }
 
         }
     }
 
 }
+

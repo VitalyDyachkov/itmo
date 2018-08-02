@@ -12,6 +12,7 @@ class Step : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
+    QString numb;
     explicit Step(QObject *parent = 0);
     ~Step();
 
@@ -24,6 +25,7 @@ protected:
      void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 private:
+
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 

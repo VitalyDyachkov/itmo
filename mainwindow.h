@@ -33,8 +33,8 @@ private:
     bool squars[100] = {false};
 
     void createSteps();
+    void RemoveSteps(QGraphicsItem *one_step,QGraphicsScene *scene);
 private slots:
-
     void Make_a_step(QGraphicsItem *one_step);
 };
 
