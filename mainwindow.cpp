@@ -4,6 +4,7 @@
 #include <QRandomGenerator>
 #include<QPushButton>
 #include<QString>
+#include<QMediaPlayer>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -18,7 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     body = new QVBoxLayout(base);
     view = new QGraphicsView();
     scene = new QGraphicsScene();
-
+    sound_efect = new QMediaPlayer();
+    sound_efect->setMedia(QUrl("qrc:/sounds/boom.mp3"));
 
     view->setBackgroundBrush(Qt::white);
     view->setScene(scene);
@@ -27,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     createSteps();
     scene->setSceneRect(0, 0, 200, 200);
 
-     scene->addRect(0, 0, 200, 200, QPen(Qt::green));
+    scene->addRect(0, 0, 200, 200, QPen(Qt::green));
 }
 MainWindow::~MainWindow()
 {
@@ -174,11 +176,10 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
 
                         continue;
                     }
-//                    numb = scene->addText("1");
-//                    numb->setPos(steps[i]->scenePos());
+
                     scene->removeItem(steps[i]);
                     qDebug() << steps[i];
-                    //steps.removeOne(steps[i]);
+
                 }
                 for(int i = 0; i < 100; i++)
                 {
@@ -190,7 +191,6 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
                         if(squars[i] == true)
                         {
                             dynamic_cast<Step *>(steps[i])->numb = string_num;
-                           //numb->hide();
                         }
                         else
                         {
@@ -208,15 +208,32 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
             }
             else
             {
-               foreach(QGraphicsItem *numb,mines)
+               foreach(QGraphicsItem *one_mine,mines)
                {
-                   if(numb == one_step)
+                   if(one_mine == one_step)
                    {
                        QGraphicsTextItem *numb;
 
-                       numb = scene->addText("M");
-                       numb->setPos(one_step->scenePos());
+                       for(int i = 0 ; i< mines.size();i++)
+                       {
+                           numb = scene->addText("M");
+                           numb->setPos(mines[i]->scenePos());
+                       }
+                       sound_efect->play();
 
+                       QMessageBox *dialog = new QMessageBox(QMessageBox::Information,
+                                                                 "Dialog", "You lost!Create new game?",
+                                                                 QMessageBox::Yes | QMessageBox::Cancel);
+
+                           if (dialog->exec() == QMessageBox::Yes)
+                           {
+
+                           }
+
+                           else
+                           {
+                               this->close();
+                           }
                    }
                }
                //steps.removeOne(one_step);
