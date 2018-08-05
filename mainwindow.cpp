@@ -2,9 +2,12 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QRandomGenerator>
-#include<QPushButton>
-#include<QString>
-#include<QMediaPlayer>
+#include <QPushButton>
+#include <QString>
+#include <QMediaPlayer>
+#include <cstdlib>
+#include <QTime>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -37,6 +40,7 @@ MainWindow::~MainWindow()
 }
 void MainWindow:: CreateNewGame()
 {
+
     for(int i = 0;i < steps.size();i++)
     {
         delete steps[i];
@@ -49,6 +53,7 @@ void MainWindow:: CreateNewGame()
         numbers[i] = 0;
     }
     first_step = false;
+    scene->clear();
     CreateSteps();
 
 }
@@ -87,16 +92,24 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
             if(first_step != true)
             {
                 //произведем рандомную очистку поля
-                QRandomGenerator *gen = new QRandomGenerator();
+
+
                 QGraphicsTextItem *numb;
+
+                QTime time = QTime::currentTime();
+                int sec = time.second();
+                int msec = time.msec();
+                QRandomGenerator *gen = new QRandomGenerator((quint32)msec);
+                 QRandomGenerator *mines_gen = new QRandomGenerator((quint32)sec);
+             //   gen->generate((quint32)sec,(quint32)msec);
 
                 scene->removeItem(one_step);
 
                 for(int i = 0;i < steps.size();i++)
                 {
-                    if (gen->generate() & 1)
+                    if (gen->generate() % 2)
                     {
-                        if(gen->generate() & 1)
+                        if(mines_gen->generate() & 1)
                         {
                              mines.push_back(steps[i]);
                              if( i == 0)
