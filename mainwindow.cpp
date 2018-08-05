@@ -54,6 +54,7 @@ void MainWindow:: CreateNewGame()
     }
     first_step = false;
     scene->clear();
+    scene->addRect(0, 0, 200, 200, QPen(Qt::green));
     CreateSteps();
 
 }
