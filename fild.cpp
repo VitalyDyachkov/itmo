@@ -33,10 +33,12 @@ void Step::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
      qDebug() << foundItem;
 
+     QGraphicsItem::mousePressEvent(event);
+
      foreach (QGraphicsItem *item, foundItem) {
 
           emit signalStep(item);
     }
 
-    QGraphicsItem::mousePressEvent(event);
+    //QGraphicsItem::mousePressEvent(event);
 }

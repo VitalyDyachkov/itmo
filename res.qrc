@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/sounds">
         <file>boom.mp3</file>
+        <file>boom_2.mp3</file>
     </qresource>
 </RCC>

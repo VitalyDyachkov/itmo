@@ -20,13 +20,13 @@ MainWindow::MainWindow(QWidget *parent) :
     view = new QGraphicsView();
     scene = new QGraphicsScene();
     sound_efect = new QMediaPlayer();
-    sound_efect->setMedia(QUrl("qrc:/sounds/boom.mp3"));
+    sound_efect->setMedia(QUrl("qrc:/sounds/boom_2.mp3"));
 
     view->setBackgroundBrush(Qt::white);
     view->setScene(scene);
     body->addWidget(view);
 
-    createSteps();
+    CreateSteps();
     scene->setSceneRect(0, 0, 200, 200);
 
     scene->addRect(0, 0, 200, 200, QPen(Qt::green));
@@ -35,7 +35,24 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-void MainWindow::createSteps()
+void MainWindow:: CreateNewGame()
+{
+    for(int i = 0;i < steps.size();i++)
+    {
+        delete steps[i];
+    }
+    steps.erase(steps.begin(),steps.end());
+    mines.erase(mines.begin(),mines.end());
+    for(int i = 0;i < 100;i++)
+    {
+        squars[i] = false;
+        numbers[i] = 0;
+    }
+    first_step = false;
+    CreateSteps();
+
+}
+void MainWindow::CreateSteps()
 {
     int row = 0, col = 0;
 
@@ -227,7 +244,9 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
 
                            if (dialog->exec() == QMessageBox::Yes)
                            {
-
+                            //произведем подготовку нового минного поля
+                               CreateNewGame();
+                               flag_new_game = true;
                            }
 
                            else
@@ -236,11 +255,19 @@ void MainWindow ::Make_a_step(QGraphicsItem *one_step)
                            }
                    }
                }
+               if(!flag_new_game)
+               {
+                   QGraphicsTextItem *numer;
+                   numer = scene->addText(dynamic_cast<Step*>(one_step)->numb);
+                   numer->setPos(one_step->scenePos());
+                   scene->removeItem(one_step);
+               }
+               else
+               {
+                    flag_new_game = false;
+               }
                //steps.removeOne(one_step);
-               QGraphicsTextItem *numer;
-               numer = scene->addText(dynamic_cast<Step*>(one_step)->numb);
-               numer->setPos(one_step->scenePos());
-               scene->removeItem(one_step);
+
             }
 
         }

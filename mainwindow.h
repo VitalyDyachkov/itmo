@@ -33,8 +33,9 @@ private:
     QVector<QGraphicsItem*>mines;
     int numbers[100] = {0};
     bool squars[100] = {false};
-
-    void createSteps();
+    bool flag_new_game = false;
+    void CreateSteps();
+    void CreateNewGame();
     void RemoveSteps(QGraphicsItem *one_step,QGraphicsScene *scene);
 private slots:
     void Make_a_step(QGraphicsItem *one_step);
